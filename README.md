@@ -31,8 +31,7 @@ qlearning-maze-solver/
 ├── visualize.py # Learning curve + solved-path visualization
 ├── test_maze.py # Manual tests for the Maze class
 └── requirements.txt
-
-
+```
 ## Setup & usage
 
 ```bash
