@@ -23,6 +23,7 @@ Over hundreds of episodes, reward signal propagates backward through the Q-table
 ![Solved maze](solved_maze.png)
 
 ## Project structure
+```text
 qlearning-maze-solver/
 ├── maze.py # Maze environment: grid, valid moves, goal detection
 ├── agent.py # QLearningAgent: Q-table, epsilon-greedy policy, Bellman update
