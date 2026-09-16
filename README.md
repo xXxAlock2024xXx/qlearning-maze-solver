@@ -19,6 +19,7 @@ Over hundreds of episodes, reward signal propagates backward through the Q-table
 - Trained (by ~episode 50): consistently solves the maze in 6–9 steps (near-optimal for the test maze).
 
 ![Learning curve](learning_curve.png)
+![Training time per episode](episode_times.png)
 ![Solved maze](solved_maze.png)
 
 ## Project structure

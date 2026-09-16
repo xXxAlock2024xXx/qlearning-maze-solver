@@ -1,4 +1,5 @@
 import numpy as np
+import time
 from maze import Maze
 from agent import QLearningAgent
 
@@ -19,8 +20,10 @@ def train(maze, agent, n_episodes=500, max_steps=100):
     Returns a list of step-counts per episode (for plotting later).
     """
     steps_per_episode = []
+    times_per_episode = []
 
     for episode in range(n_episodes):
+        episod_start = time.time()
         state = maze.start
         steps = 0
         done = False
@@ -38,11 +41,12 @@ def train(maze, agent, n_episodes=500, max_steps=100):
 
         agent.decay_epsilon()
         steps_per_episode.append(steps)
+        times_per_episode.append(time.time() - episod_start)
 
         if (episode + 1) % 50 == 0:
             print(f"Episode {episode + 1}/{n_episodes}, steps: {steps}, epsilon: {agent.epsilon:.3f}")
 
-    return steps_per_episode
+    return steps_per_episode, times_per_episode
 
 
 if __name__ == "__main__":
@@ -57,8 +61,10 @@ if __name__ == "__main__":
     maze = Maze(grid, start, goal)
     agent = QLearningAgent(maze_shape=grid.shape)
 
+    start_time = time.time()
     steps_history = train(maze, agent, n_episodes=500)
 
     print("Training complete.")
+    print(f"Training took {time.time() - start_time:.4f} seconds.")
     print(f"First episode steps: {steps_history[0]}")
     print(f"Last episode steps: {steps_history[-1]}")

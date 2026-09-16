@@ -1,3 +1,4 @@
+import time
 import numpy as np
 import matplotlib.pyplot as plt
 from maze import Maze
@@ -25,6 +26,15 @@ def get_greedy_path(maze, agent, max_steps=50):
         state = maze.step(action, state)
         path.append(state)
     return path
+
+def plot_episode_times(times_per_episode):
+    plt.figure(figsize=(8, 5))
+    plt.plot(times_per_episode)
+    plt.xlabel("Episode")
+    plt.ylabel("Time (seconds)")
+    plt.title("Per-Episode Training Time")
+    plt.savefig("episode_times.png")
+    plt.show()
 
 def plot_solved_maze(maze, path):
     grid = maze.grid.copy().astype(float)
@@ -55,8 +65,12 @@ if __name__ == "__main__":
     maze = Maze(grid, start, goal)
     agent = QLearningAgent(maze_shape=grid.shape)
 
-    steps_history = train(maze, agent, n_episodes=500)
+    start_time = time.time()
+    steps_history, times_history = train(maze, agent, n_episodes=500)
+    print(f"Training took {time.time() - start_time:.4f} seconds")
+
     plot_learning_curve(steps_history)
+    plot_episode_times(times_history)
 
     path = get_greedy_path(maze, agent)
     print(f"Learned path: {path}")
